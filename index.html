@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORTUNA</title>
+    <link rel="icon" type="image/jpg" href="img/logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #4caf50, #2e7d32);
+            color: white;
+            padding: 20px;
+            overflow: auto; /* Permitir desplazamiento */
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(30, 32, 30, 0.705);
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .logo {
+            width: 40%;
+            max-width: 100px;
+            height: auto;
+        }
+
+        .container {
+            margin-top: 120px;
+            padding: 0 10px;
+        }
+
+        img {
+            margin-top: 6px;
+            width: 90%;
+            max-width: 500px;
+            height: auto;
+            border: 5px solid #11b811;
+            border-radius: 15px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .join-button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .join-button {
+            display: none;
+            padding: 15px 30px;
+            background-color: #4caf50;
+            color: white;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 200px;
+            text-align: center;
+        }
+
+        .join-button:hover {
+            background-color: #45a049;
+        }
+
+        .description {
+            margin-top: 15px;
+            font-size: 16px;
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.5;
+            color: rgb(248, 245, 245);
+        }
+
+        /* Contenedor del mensaje de loader, centrado en la pantalla */
+        .countdown-container {
+            font-size: 22px;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+            display: none;
+            margin-top: 20px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* Centrado horizontal y vertical */
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 5px;
+            z-index: 999;
+        }
+
+        /* Loader style (circle that spins) */
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-top: 16px solid #4caf50;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            margin: 10px auto;
+            animation: spin 8s linear infinite; /* This makes the loader spin */
+        }
+
+        /* The keyframes animation for rotating the loader */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <img src="logo.png" alt="Logo" class="logo">
+    </div>
+
+    <div class="container">
+        <!-- Contenedor para el botón, asegurando que esté centrado debajo de la imagen -->
+        <div class="join-button-container">
+            <button class="join-button" id="join-button" onclick="window.open('https://chat.whatsapp.com/I7cC3iheqpwJKfBKQJnco6', '_blank')">Unirme al grupo</button>
+        </div>
+
+        <img src="fortuna.jpg" alt="Imagen principal">
+
+        <p class="description">
+            SE REALIZARAN DOS DINAMICAS AL DIA <br>
+            1) HORARIOS <br>
+            1️⃣ 8AM A 1PM <br>
+            2️⃣ 4PM A 7PM <br><br>
+            2) LA PRIMERA DINAMICA CONSTA DE 6 ANIMALES VALIDOS PARA LAS LOTERIAS LOTTO ACTIVO, LA GRANJITA Y SELVA PLUS, 
+            LA SEGUNDA SERA DE 4 ANIMALES VALIDOS PARA LAS MISMAS LOTERIAS <br><br>
+            3) EL PRECIO DE AMBAS DINAMICAS SERA DE 30 BS <br><br>
+            4) DINAMICAS CON NUMEROS REPETIDOS SE LE CAMBIARÁ POR EL ANTERIOR O SIGUIENTE SIEMPRE Y CUANDO NO SALGA EN EL PRIMER SORTEO. 
+            COMBINACIONES CON NÚMEROS FUERA DE LOS 38 ANIMALITOS QUEDA NULA.
+        </p>
+
+        <!-- Contenedor para la cuenta regresiva y loader -->
+        <div class="countdown-container" id="countdown-container">
+            <span class="close-btn" id="close-btn">X</span>
+            <p>Se redirigirá al grupo en <span id="countdown-message">8</span> segundos...</p>
+            <div class="loader" id="loader"></div>
+        </div>
+    </div>
+
+    <script>
+        let countdownInterval;
+        let countdown = 8;
+
+        // Función para mostrar la cuenta regresiva y el loader
+        function showCountdown() {
+            let countdownMessage = document.getElementById("countdown-message");
+            let countdownContainer = document.getElementById("countdown-container");
+            countdownContainer.style.display = "block";
+
+            countdownInterval = setInterval(function() {
+                countdown--;
+                countdownMessage.textContent = countdown;
+
+                if (countdown <= 0) {
+                    clearInterval(countdownInterval);
+                    window.open("https://chat.whatsapp.com/I7cC3iheqpwJKfBKQJnco6", "_blank"); // Redirige en nueva pestaña
+                }
+            }, 1000);
+        }
+
+        // Mostrar la cuenta regresiva después de 3 segundos
+        setTimeout(function() {
+            showCountdown();
+        }, 3000);
+
+        // Cerrar el mensaje de cuenta regresiva
+        document.getElementById("close-btn").addEventListener("click", function() {
+            document.getElementById("countdown-container").style.display = "none";
+            clearInterval(countdownInterval);
+
+            // Resetear la cuenta regresiva a 8 segundos
+            countdown = 8;
+
+            setTimeout(function() {
+                showCountdown(); // Mostrar nuevamente después de 5 segundos
+            }, 5000);
+        });
+
+        // Mostrar el botón "Unirse al grupo" al cargar la página
+        setTimeout(function() {
+            document.getElementById("join-button").style.display = "block";
+        }, 3000); // Aparece después de 3 segundos
+    </script>
+
+</body>
+</html>
